@@ -11,9 +11,11 @@ class App {
     private mountRoutes(): void {
         const router = express.Router()
         router.get('/', (req, res) => {
-            res.json({
-                message: 'Hello World!'
-            })
+            console.log('Hello world received a request.');
+            res.set('Content-Type', 'text/plain');
+            res.set('Cache-Control', 'no-cache, no-store');
+            const target = process.env.TARGET || 'World';
+            res.send(`Hello ${target}\n`);            
         })
         this.express.use('/', router)
     }
